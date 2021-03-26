@@ -5,16 +5,19 @@ const MaterialValue = require("../models/MaterialValues"),
 const isEmployeeExist = async (id) => {
     return !!(await Employee.findByPk(id))
 },
-    isMaterialValueExist = async (id) => {
-    return !!(await MaterialValue.findOne({
-        where: { employeeId: id }
-    }))
+    isMaterialValueExist = async (id, materialValueName) => {
+        return !!(await MaterialValue.findOne({
+            where: {
+                name: materialValueName,
+                employeeId: id
+            }
+        }))
     }
 
 module.exports = {
     createEmployeeMaterialValue: async (id, materialValueName, materialValuePrice) => {
         if (await isEmployeeExist(id)) {
-            if (await isMaterialValueExist(id))
+            if (await isMaterialValueExist(id, materialValueName))
                 throw new ServiceError(409, "Employee with given id already has this material value");
             await MaterialValue.create({
                 name: materialValueName,
