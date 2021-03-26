@@ -3,8 +3,8 @@ const db = require('../db'),
     MaterialValues = require('./MaterialValues')
 
 const Employees = db.define("employees", {
-    first_name: DataTypes.STRING,
-    second_name: DataTypes.STRING,
+    firstName: DataTypes.STRING,
+    secondName: DataTypes.STRING,
     patronymic: DataTypes.STRING
 }, {
     timestamps: false
