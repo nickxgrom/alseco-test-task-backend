@@ -14,4 +14,7 @@ router.post("/employees/:id", catchError(async (req, res, next) => {
     res.sendStatus(200)
 }))
 
+router.get("/employees/:id", catchError(async (req, res, next) => {
+    res.json(await MaterialValueService.getAllEmployeeMaterialValues(req.params.id))
+}))
 module.exports = router

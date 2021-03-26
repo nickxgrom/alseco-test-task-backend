@@ -27,5 +27,15 @@ module.exports = {
         } else {
             throw new ServiceError(404, "Employee with given id is not found")
         }
+    },
+    getAllEmployeeMaterialValues: async (id) => {
+        if (! await isEmployeeExist(id)) {
+            throw new ServiceError(404, "Employee with given id is not found")
+        }
+        return await MaterialValue.findAll({
+            where: {
+                employeeId: id
+            }
+        })
     }
 }
