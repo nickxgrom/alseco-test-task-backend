@@ -1,0 +1,23 @@
+{
+  "name": "alseco-test-task-backend",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nickxgrom/alseco-test-task-backend.git"
+  },
+  "author": "Nikita Gromyko",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nickxgrom/alseco-test-task-backend/issues"
+  },
+  "homepage": "https://github.com/nickxgrom/alseco-test-task-backend#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1"
+  }
+}
