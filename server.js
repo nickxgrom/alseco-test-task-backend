@@ -3,15 +3,16 @@ const express = require("express"),
     bodyParser = require("body-parser"),
     router = require("./src/handler.js"),
     PORT = 3000,
-    db = require('./src/db')
+    db = require('./src/db'),
+    ServiceError = require("./src/error");
 
 app.use(bodyParser.json())
 app.use(router)
 
 app.use( (err, req, res, next) =>  {
-    console.error(err.message)
-    res.status(500).send("Server error")
-    next()
+    if (err instanceof ServiceError) {
+        res.status(err.statusCode).send(err.message)
+    } else next(err)
 })
 
 app.listen(PORT, async () => {
