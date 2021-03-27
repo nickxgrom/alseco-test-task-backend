@@ -32,4 +32,9 @@ router.put("/materialValue/:materialValueId", catchError(async (req, res, next) 
     res.sendStatus(200)
 }))
 
+router.put("/employee/:employeeId", catchError(async (req, res, next) => {
+    await EmployeeService.updateEmployee(req.params.employeeId, req.body.firstName, req.body.secondName, req.body.patronymic)
+    res.sendStatus(200)
+}))
+
 module.exports = router

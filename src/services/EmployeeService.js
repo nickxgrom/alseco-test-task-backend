@@ -18,5 +18,16 @@ module.exports = {
             secondName,
             patronymic
         })
-    }
+    },
+    updateEmployee: async (employeeId, newFirstName, newSecondName, newPatronymic) => {
+        try {
+            let employee = await Employee.findByPk(employeeId)
+            employee.firstName = newFirstName
+            employee.secondName = newSecondName
+            employee.patronymic = newPatronymic
+            await employee.save()
+        } catch {
+            throw new ServiceError(404, "Employee doesn't exist")
+        }
+    },
 }
