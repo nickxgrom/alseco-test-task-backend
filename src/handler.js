@@ -17,4 +17,9 @@ router.post("/employees/:id", catchError(async (req, res, next) => {
 router.get("/employees/:id", catchError(async (req, res, next) => {
     res.json(await MaterialValueService.getAllEmployeeMaterialValues(req.params.id))
 }))
+
+router.get("/employeesTable", catchError(async (req, res, next) => {
+    res.json(await MaterialValueService.getListOfEmployeesAndMaterialValues())
+}))
+
 module.exports = router

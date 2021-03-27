@@ -12,6 +12,19 @@ const isEmployeeExist = async (id) => {
                 employeeId: id
             }
         }))
+    },
+    getEmployeeMaterialValueAmount = async (id) => {
+        return (await MaterialValue.findAndCountAll({
+            where: { employeeId: id }
+        })).count
+    },
+    getEmployeeAllMaterialValuePrice = async (employeeId) => {
+        let mv = await MaterialValue.findAll({where:{employeeId: employeeId}})
+        let price = 0;
+        mv.forEach(item => {
+            price += item.price
+        })
+        return price
     }
 
 module.exports = {
@@ -37,5 +50,16 @@ module.exports = {
                 employeeId: id
             }
         })
+    },
+    getListOfEmployeesAndMaterialValues: async () => {
+        let employees = await Employee.findAll()
+
+        for (const employee of employees) {
+            employee.setDataValue("materialValueCount", await getEmployeeMaterialValueAmount(employee.id))
+            employee.setDataValue("materialValuesPrice", await getEmployeeAllMaterialValuePrice(employee.id))
+        }
+        return employees;
+
+
     }
 }
