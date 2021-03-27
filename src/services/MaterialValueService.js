@@ -63,4 +63,14 @@ module.exports = {
     deleteEmployeeMaterialValue: async (materialValueId) => {
         await (await MaterialValue.findByPk(materialValueId)).destroy()
     },
+    updateEmployeeMaterialValue: async (materialValueId, newName, newPrice) => {
+        try {
+            let materialValue = await MaterialValue.findByPk(materialValueId)
+            materialValue.name = newName
+            materialValue.price = newPrice
+            await materialValue.save()
+        } catch {
+            throw new ServiceError(404, "Material value not found")
+        }
+    }
 }

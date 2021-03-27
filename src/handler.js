@@ -27,4 +27,9 @@ router.delete("/materialValue/:materialValueId", catchError(async (req, res, nex
     res.sendStatus(200)
 }))
 
+router.put("/materialValue/:materialValueId", catchError(async (req, res, next) => {
+    await MaterialValueService.updateEmployeeMaterialValue(req.params.materialValueId, req.body.newName, req.body.newPrice)
+    res.sendStatus(200)
+}))
+
 module.exports = router
