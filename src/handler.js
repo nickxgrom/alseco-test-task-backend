@@ -37,4 +37,9 @@ router.put("/employee/:employeeId", catchError(async (req, res, next) => {
     res.sendStatus(200)
 }))
 
+router.delete("/employee/:employeeId", catchError(async (req, res, next) => {
+    await EmployeeService.deleteEmployee(req.params.employeeId)
+    res.sendStatus(200)
+}))
+
 module.exports = router

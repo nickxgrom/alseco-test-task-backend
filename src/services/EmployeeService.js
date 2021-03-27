@@ -30,4 +30,7 @@ module.exports = {
             throw new ServiceError(404, "Employee doesn't exist")
         }
     },
+    deleteEmployee: async (employeeId) => {
+        await (await Employee.findByPk(employeeId)).destroy()
+    },
 }
