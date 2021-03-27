@@ -22,4 +22,9 @@ router.get("/employeesTable", catchError(async (req, res, next) => {
     res.json(await MaterialValueService.getListOfEmployeesAndMaterialValues())
 }))
 
+router.delete("/materialValue/:materialValueId", catchError(async (req, res, next) => {
+    await MaterialValueService.deleteEmployeeMaterialValue(req.params.materialValueId)
+    res.sendStatus(200)
+}))
+
 module.exports = router

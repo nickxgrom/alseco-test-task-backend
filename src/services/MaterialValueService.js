@@ -59,7 +59,8 @@ module.exports = {
             employee.setDataValue("materialValuesPrice", await getEmployeeAllMaterialValuePrice(employee.id))
         }
         return employees;
-
-
-    }
+    },
+    deleteEmployeeMaterialValue: async (materialValueId) => {
+        await (await MaterialValue.findByPk(materialValueId)).destroy()
+    },
 }
