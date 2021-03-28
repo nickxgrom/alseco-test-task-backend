@@ -1,6 +1,15 @@
 const Employee = require("../models/Employees"),
      ServiceError = require("../error")
 
+const getEmployeeOrThrowError = async (employeeId) => {
+    const employee = await Employee.findByPk(employeeId)
+
+    if (!employee) {
+        throw new ServiceError(404, "Employee doesn't exist")
+    }
+    return employee
+};
+
 module.exports = {
     createEmployee: async (firstName, secondName, patronymic) => {
         const hasEmployee = await Employee.findOne({
@@ -20,17 +29,13 @@ module.exports = {
         })
     },
     updateEmployee: async (employeeId, newFirstName, newSecondName, newPatronymic) => {
-        try {
-            let employee = await Employee.findByPk(employeeId)
-            employee.firstName = newFirstName
-            employee.secondName = newSecondName
-            employee.patronymic = newPatronymic
-            await employee.save()
-        } catch {
-            throw new ServiceError(404, "Employee doesn't exist")
-        }
+        let employee = await getEmployeeOrThrowError(employeeId)
+        employee.firstName = newFirstName
+        employee.secondName = newSecondName
+        employee.patronymic = newPatronymic
+        await employee.save()
     },
     deleteEmployee: async (employeeId) => {
-        await (await Employee.findByPk(employeeId)).destroy()
+        await (await getEmployeeOrThrowError(employeeId)).destroy()
     },
 }
