@@ -9,20 +9,20 @@ const getEmployeeOrThrowError = async (employeeId) => {
         }
         return employee
     },
-    throwErrorIfExist = async (firstName, secondName, patronymic) => {
+    throwErrorIfEmployeeExist = async (firstName, secondName, patronymic) => {
         const isEmployeeExist = await Employee.findOne({
             where: {
                 firstName, secondName, patronymic
             }
         })
         if (isEmployeeExist) {
-            throw new ServiceError(409, "Employee already exist")
+            throw new ServiceError(409, "Employee with given first name, second name and patronymic is already exist")
         }
     }
 
 module.exports = {
     createEmployee: async (firstName, secondName, patronymic) => {
-        await throwErrorIfExist(firstName, secondName, patronymic)
+        await throwErrorIfEmployeeExist(firstName, secondName, patronymic)
         await Employee.create({
             firstName,
             secondName,
@@ -31,6 +31,7 @@ module.exports = {
     },
     updateEmployee: async (employeeId, newFirstName, newSecondName, newPatronymic) => {
         let employee = await getEmployeeOrThrowError(employeeId)
+        await throwErrorIfEmployeeExist(newFirstName, newSecondName, newPatronymic)
         employee.firstName = newFirstName
         employee.secondName = newSecondName
         employee.patronymic = newPatronymic
