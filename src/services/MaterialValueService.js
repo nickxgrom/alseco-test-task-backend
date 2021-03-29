@@ -25,6 +25,10 @@ const isEmployeeExist = async (id) => {
             price += item.price
         })
         return price
+    },
+    getEmployeeFullName = async (employeeId) => {
+        const employee = await Employee.findByPk(employeeId)
+        return `${employee.secondName} ${employee.firstName[0]}. ${employee.patronymic[0]}.`
     }
 
 module.exports = {
@@ -52,9 +56,14 @@ module.exports = {
         })
     },
     getListOfEmployeesAndMaterialValues: async () => {
-        let employees = await Employee.findAll()
+        let employees = await Employee.findAll({
+            attributes: {
+                exclude: ["firstName", "secondName", "patronymic"]
+            }
+        })
 
         for (const employee of employees) {
+            employee.setDataValue("fullName", await getEmployeeFullName(employee.id))
             employee.setDataValue("materialValueCount", await getEmployeeMaterialValueAmount(employee.id))
             employee.setDataValue("materialValuesPrice", await getEmployeeAllMaterialValuePrice(employee.id))
         }
