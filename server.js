@@ -4,8 +4,10 @@ const express = require("express"),
     router = require("./src/handler.js"),
     PORT = 3000,
     db = require('./src/db'),
-    ServiceError = require("./src/error");
+    ServiceError = require("./src/error"),
+    cors = require('cors');
 
+app.use(cors())
 app.use(bodyParser.json())
 app.use(router)
 
