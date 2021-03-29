@@ -1,6 +1,6 @@
 ﻿USE ALSECO;
 SET CHARACTER SET utf8;
-INSERT INTO employees(id,firstName,secondName,patronymic)
+INSERT INTO employees(id,secondName,firstName,patronymic)
 VALUES
 (DEFAULT, 'Петухов', 'Елисей', 'Арсеньевич'),
 (DEFAULT, 'Попов', 'Гурий', 'Еремеевич'),
