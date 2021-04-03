@@ -5,8 +5,7 @@ const express = require("express"),
     catchError = require("./util")
 
 router.post("/employees", catchError(async (req, res, next) =>  {
-    await EmployeeService.createEmployee(req.body.firstName, req.body.secondName, req.body.patronymic)
-    res.sendStatus(200)
+    res.json(await EmployeeService.createEmployee(req.body.firstName, req.body.secondName, req.body.patronymic))
 }))
 
 router.post("/employees/:id", catchError(async (req, res, next) => {
