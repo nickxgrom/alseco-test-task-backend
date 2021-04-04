@@ -70,7 +70,9 @@ module.exports = {
         return employees;
     },
     deleteEmployeeMaterialValue: async (materialValueId) => {
-        await (await MaterialValue.findByPk(materialValueId)).destroy()
+        const materialValue = await MaterialValue.findByPk(materialValueId)
+        await materialValue.destroy()
+        return materialValue
     },
     updateEmployeeMaterialValue: async (materialValueId, newName, newPrice) => {
         try {

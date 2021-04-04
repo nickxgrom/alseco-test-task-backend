@@ -26,8 +26,7 @@ router.get("/employeesTable", catchError(async (req, res, next) => {
 }))
 
 router.delete("/materialValue/:materialValueId", catchError(async (req, res, next) => {
-    await MaterialValueService.deleteEmployeeMaterialValue(req.params.materialValueId)
-    res.sendStatus(200)
+    res.json(await MaterialValueService.deleteEmployeeMaterialValue(req.params.materialValueId))
 }))
 
 router.put("/materialValue/:materialValueId", catchError(async (req, res, next) => {
