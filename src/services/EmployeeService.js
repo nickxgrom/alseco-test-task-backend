@@ -21,6 +21,9 @@ const getEmployeeOrThrowError = async (employeeId) => {
     }
 
 module.exports = {
+    getEmployee: async (id) => {
+        return  await Employee.findByPk(id)
+    },
     createEmployee: async (firstName, secondName, patronymic) => {
         await throwErrorIfEmployeeExist(firstName, secondName, patronymic)
         const employee = await Employee.create({
